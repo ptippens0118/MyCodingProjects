@@ -1,0 +1,23 @@
+import math
+import random
+import operator
+import matplotlib.pyplot as plt
+import numpy as np
+import orbitalClasses 
+import orbitalFunctions
+
+muSun = 132712*10**6
+Rs2e = 149.6*10**9 #m
+earthYVInit = math.sqrt(muSun/Rs2e)
+
+Earth = orbitalClasses.celestialBodyElemental("Earth", 150*10**6, 0.1, 0, 5.976*10**24)
+
+Orion = orbitalClasses.spacecraft("Artemis", 924000000, 0, 0, 26375, Earth)
+
+propTime = (60**2)*24*365
+bodyList = [Orion]
+orbitalFunctions.runOrbitSim(Earth, bodyList, 10, 0, propTime)
+
+for body in bodyList:
+    plt.plot(body.posX, body.posY)
+plt.show()

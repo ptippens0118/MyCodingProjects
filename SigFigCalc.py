@@ -64,10 +64,50 @@ def howManyDecimal(num):
             
     return numDec
 
-TK_SILENCE_DEPRICATION=1
-window = tk.Tk()
-window.title("Hello World")
+def add_to_calculation(symbol):
+    global calculation
+    calculation += str(symbol)
+    text_result.delete(1.0, "end")
+    text_result.insert(1.0, calculation)
+
+def evaluate_calculation():
+    global calculation
+    try:
+        num1 = ""
+        num2 = ""
+        opp = ""
+        for str in calculation:
+            if str == "*" or str == "/":
+                opp = str
+
+            elif opp == "":
+                num1 = num1+str
+
+            else:
+                num2 = num2+str
+        return num1, opp, num2
+    except:
+        print("Invalid Command")
+
+        
+
+
+
+
+root = tk.Tk()
+
+root.geometry("300x275")
+root.title("Sig Fig Calculator")
+
+text_result = tk.Text(root, height=2, width=16, font=("Arial", 24))
+text_result.grid(columnspan=5)
+
+
+root.mainloop()
+
 
             
 
 #print(sigFigCalc("3.008765", "*", "2.0050"))
+num1, opp, num2 = evaluate_calculation("3.008765*2.0050")
+print(sigFigCalc(num1, opp, num2))
