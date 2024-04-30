@@ -60,3 +60,14 @@ def gravForce(object1, object2):
         Fgy = abs(math.sin(theta)*Fg)
 
     return Fgx, Fgy
+
+def maneuver(spacecraft, dV):
+    theta = math.atan(spacecraft.velY[-1]/spacecraft.velX[-1])
+    dVX = dV*math.cos(theta)
+    dVY = dV*math.sin(theta)
+
+    dirX = spacecraft.velX[-1]/abs(spacecraft.velX[-1])
+    dirY = spacecraft.velY[-1]/abs(spacecraft.velY[-1])
+
+    spacecraft.velX[-1] = spacecraft.velX[-1] + dVX*dirX
+    spacecraft.velY[-1] = spacecraft.velY[-1] + dVY*dirY

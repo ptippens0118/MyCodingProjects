@@ -16,8 +16,23 @@ Orion = orbitalClasses.spacecraft("Artemis", 924000000, 0, 0, 26375, Earth)
 
 propTime = (60**2)*24*365
 bodyList = [Orion]
-orbitalFunctions.runOrbitSim(Earth, bodyList, 10, 0, propTime)
+dt = 5
+orbitalFunctions.runOrbitSim(Earth, bodyList, dt, 0, propTime)
+
+orbitalFunctions.maneuver(Orion, 150)
+
+orbitalFunctions.runOrbitSim(Earth, bodyList, dt, 0, propTime*3)
+
+orbitalFunctions.maneuver(Orion, -150)
+
+orbitalFunctions.runOrbitSim(Earth, bodyList, dt, 0, propTime)
+
+fig, ax = plt.subplots()
 
 for body in bodyList:
-    plt.plot(body.posX, body.posY)
+    ax.plot(body.posX, body.posY, color = 'r')
+
+earthModel = plt.Circle((0,0), 6.371e6, color = 'b')
+
+ax.add_patch(earthModel)
 plt.show()
